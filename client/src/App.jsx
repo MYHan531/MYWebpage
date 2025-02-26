@@ -3,18 +3,15 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
-  // Tab state: 'finance' or 'diet'
+  // Main tab state: 'finance' or 'diet'
   const [selectedTab, setSelectedTab] = useState('finance');
 
-  // Income & result states for the Finance tab
+  // Finance tab states (unchanged)
   const [income, setIncome] = useState('');
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-
-  // Tips for the finance recommendations
   const [tips, setTips] = useState([]);
 
-  // Array of potential recommendations
   const RECOMMENDATIONS = [
     'Automate Savings: Schedule an automatic transfer to your savings or investment account each month.',
     'Track Expenses: Use a budgeting app (e.g., Seedly, YNAB) to keep tabs on your daily spending.',
@@ -26,7 +23,6 @@ function App() {
     'Plan for Retirement Early: Explore SRS or CPF top-ups to enhance your retirement nest egg.'
   ];
 
-  // Simple shuffle for the array of tips
   function shuffleArray(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -35,7 +31,7 @@ function App() {
     return arr;
   }
 
-  // Color schemes to pick from
+  // Color schemes
   const colorSchemes = [
     {
       background: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
@@ -55,16 +51,14 @@ function App() {
     }
   ];
 
-  // State for current color scheme
   const [currentScheme, setCurrentScheme] = useState(colorSchemes[0]);
 
-  // Each time the selected tab changes (or on first load), pick a new random color scheme
   useEffect(() => {
     const randomScheme = colorSchemes[Math.floor(Math.random() * colorSchemes.length)];
     setCurrentScheme(randomScheme);
   }, [selectedTab]);
 
-  // Handle the finance calculation
+  // Finance calculation handler
   const handleCalculate = async () => {
     setError(null);
     setResult(null);
@@ -86,14 +80,58 @@ function App() {
         setError(data.error || 'An error occurred.');
       } else {
         setResult(data);
-
-        // Shuffle and pick a subset of recommendations
         const shuffled = shuffleArray([...RECOMMENDATIONS]);
-        setTips(shuffled.slice(0, 5)); // for example, display 5 tips
+        setTips(shuffled.slice(0, 5));
       }
     } catch (err) {
       setError('Error connecting to the server.');
     }
+  };
+
+  // --- Diet/BMI Page State and Handlers ---
+  // Sub-tab state for Diet/BMI (null = selection screen, "BMI" or "Diet")
+  const [dietSubTab, setDietSubTab] = useState(null);
+
+  // BMI calculator state
+  const [bmiWeight, setBmiWeight] = useState('');
+  const [bmiHeight, setBmiHeight] = useState('');
+  const [bmiResult, setBmiResult] = useState(null);
+
+  const handleBMICalc = () => {
+    const weight = parseFloat(bmiWeight);
+    const height = parseFloat(bmiHeight);
+    if (!weight || !height) {
+      alert("Please enter valid numbers for weight and height.");
+      return;
+    }
+    const heightInMeters = height / 100;
+    const bmi = weight / (heightInMeters * heightInMeters);
+    let classification = "";
+    let color = "";
+    let tip = "";
+
+    if (bmi < 16) {
+      classification = "Severely Underweight";
+      color = "#e74c3c"; // red
+      tip = "Consider consulting a healthcare provider and increasing your calorie intake.";
+    } else if (bmi < 18.5) {
+      classification = "Underweight";
+      color = "#e67e22"; // orange
+      tip = "Consider a balanced diet with more calorie-dense foods and consult a nutritionist.";
+    } else if (bmi < 25) {
+      classification = "Healthy";
+      color = "#2ecc71"; // green
+      tip = "Your BMI is healthy! Maintain your current lifestyle.";
+    } else if (bmi < 30) {
+      classification = "Overweight";
+      color = "#e67e22"; // orange
+      tip = "Consider regular exercise and a balanced diet to improve your health.";
+    } else {
+      classification = "Obese";
+      color = "#e74c3c"; // red
+      tip = "It's advisable to consult a healthcare provider for a structured weight management plan.";
+    }
+    setBmiResult({ value: bmi, classification, color, tip });
   };
 
   return (
@@ -105,17 +143,17 @@ function App() {
         minHeight: '100vh'
       }}
     >
-      {/* Top navigation with two square "tabs" */}
+      {/* Top navigation tabs */}
       <div className="tabs">
         <div
           className={`tab ${selectedTab === 'finance' ? 'active' : ''}`}
-          onClick={() => setSelectedTab('finance')}
+          onClick={() => { setSelectedTab('finance'); setDietSubTab(null); }}
         >
           Finance
         </div>
         <div
           className={`tab ${selectedTab === 'diet' ? 'active' : ''}`}
-          onClick={() => setSelectedTab('diet')}
+          onClick={() => { setSelectedTab('diet'); setDietSubTab(null); }}
         >
           Diet / BMI
         </div>
@@ -133,16 +171,13 @@ function App() {
             placeholder="Enter your monthly income"
           />
           <button onClick={handleCalculate}>Calculate</button>
-
           {error && <p className="error">{error}</p>}
-
           {result && (
             <div className="result">
               <h2>Results</h2>
               <p>
                 <strong>Total Income:</strong> ${result.income.toFixed(2)}
               </p>
-
               {/* Needs Section */}
               <div className="section">
                 <h3>Needs (50%): ${result.breakdown.needs.toFixed(2)}</h3>
@@ -170,7 +205,6 @@ function App() {
                   </li>
                 </ul>
               </div>
-
               {/* Wants Section */}
               <div className="section">
                 <h3>Wants (30%): ${result.breakdown.wants.toFixed(2)}</h3>
@@ -190,7 +224,6 @@ function App() {
                   </li>
                 </ul>
               </div>
-
               {/* Savings Section */}
               <div className="section">
                 <h3>Savings (20%): ${result.breakdown.savings.toFixed(2)}</h3>
@@ -214,8 +247,7 @@ function App() {
                   </li>
                 </ul>
               </div>
-
-              {/* Dynamic Recommendations Section */}
+              {/* Dynamic Recommendations */}
               {tips.length > 0 && (
                 <div className="recommendations">
                   <h3>Recommendations</h3>
@@ -232,12 +264,77 @@ function App() {
         </div>
       )}
 
-      {/* Diet / BMI Tab (Placeholder) */}
+      {/* Diet / BMI Tab */}
       {selectedTab === 'diet' && (
         <div className="content-container">
-          <h1>Diet / BMI Platform</h1>
-          <p>This is a placeholder for your future diet/BMI functionality.</p>
-          <p>Stay tuned for healthy eating tips, BMI calculation, and more!</p>
+          {/* Diet/BMI Selection Screen */}
+          {dietSubTab === null && (
+            <div className="diet-selection">
+              <h1>Diet / BMI Platform</h1>
+              <p>Please select an option:</p>
+              <div className="diet-buttons">
+                <button onClick={() => setDietSubTab('BMI')}>BMI Calculator</button>
+                <button onClick={() => setDietSubTab('Diet')}>Diet Planner (Coming Soon)</button>
+              </div>
+            </div>
+          )}
+
+          {/* BMI Calculator */}
+          {dietSubTab === 'BMI' && (
+            <div className="bmi-container">
+              <h2>BMI Calculator</h2>
+              <input
+                type="text"
+                value={bmiWeight}
+                onChange={(e) => setBmiWeight(e.target.value)}
+                placeholder="Weight (kg)"
+              />
+              <input
+                type="text"
+                value={bmiHeight}
+                onChange={(e) => setBmiHeight(e.target.value)}
+                placeholder="Height (cm)"
+              />
+              <button onClick={handleBMICalc}>Calculate BMI</button>
+              {bmiResult && (
+                <div
+                  className="bmi-result"
+                  style={{
+                    backgroundColor: bmiResult.color,
+                    padding: "10px",
+                    borderRadius: "8px",
+                    marginTop: "10px",
+                    color: "#fff"
+                  }}
+                >
+                  <p>Your BMI is {bmiResult.value.toFixed(1)}</p>
+                  <p>
+                    <strong>{bmiResult.classification}</strong>
+                  </p>
+                  <p>{bmiResult.tip}</p>
+                </div>
+              )}
+              <button
+                onClick={() => {
+                  setDietSubTab(null);
+                  setBmiResult(null);
+                  setBmiWeight('');
+                  setBmiHeight('');
+                }}
+              >
+                Back
+              </button>
+            </div>
+          )}
+
+          {/* Diet Planner Placeholder */}
+          {dietSubTab === 'Diet' && (
+            <div className="diet-container">
+              <h2>Diet Planner</h2>
+              <p>This feature is coming soon. Stay tuned for healthy eating tips and meal planning tools!</p>
+              <button onClick={() => setDietSubTab(null)}>Back</button>
+            </div>
+          )}
         </div>
       )}
     </div>
