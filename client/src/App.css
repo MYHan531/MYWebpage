@@ -1,0 +1,161 @@
+/* client/src/App.css */
+
+/* Body reset / global styling */
+body {
+    margin: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+  
+  /* Parent container */
+  .App {
+    /* We set minHeight and background dynamically in App.jsx */
+    color: #333;
+    transition: background 0.6s ease, color 0.6s ease;
+  }
+  
+  /* Tabs container */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    gap: 20px;
+  }
+  
+  /* Each tab box */
+  .tab {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    text-align: center;
+  }
+  
+  .tab:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  
+  /* Active tab style */
+  .tab.active {
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Main content container for each tab */
+  .content-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Input and button for Finance tab */
+  input {
+    padding: 12px;
+    font-size: 16px;
+    width: 300px;
+    margin-right: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  button {
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #fda085;
+    color: white;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #f6d365;
+  }
+  
+  /* Result container with fade-in animation */
+  .result {
+    margin-top: 30px;
+    text-align: left;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.8s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Spacing for sections */
+  .section {
+    margin-bottom: 20px;
+  }
+  
+  /* Error message styling */
+  .error {
+    color: #e74c3c;
+    font-weight: bold;
+  }
+  
+  /* Recommendations section */
+  .recommendations {
+    margin-top: 20px;
+  }
+  /* Hover effects for tabs */
+.tab {
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .tab:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    transform: scale(1.05);
+  }
+  
+  /* Hover effects for buttons */
+  button {
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  button:hover {
+    background-color: #f6d365;
+    transform: scale(1.02);
+  }
+  
+  /* Hover effect for the recommendations list items */
+  .recommendations li {
+    transition: background-color 0.3s, transform 0.3s;
+    padding: 8px;
+    border-radius: 4px;
+  }
+  
+  .recommendations li:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+  }
+  
+  /* Optional: Hover effect for the content container for a subtle shadow boost */
+  .content-container {
+    transition: box-shadow 0.3s;
+  }
+  
+  .content-container:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  
