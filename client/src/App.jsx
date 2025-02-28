@@ -36,11 +36,39 @@ function App() {
 
   // ----- Dynamic Color Schemes -----
   const colorSchemes = [
-    { background: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', textColor: '#333' },
-    { background: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)', textColor: '#333' },
-    { background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', textColor: '#333' },
-    { background: 'linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)', textColor: '#444' }
-  ];
+    { background: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', textColor: '#333' }, // Warm Sunset
+    { background: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)', textColor: '#333' }, // Soft Blue Sky
+    { background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', textColor: '#222' }, // Vibrant Coral Pink
+    { background: 'linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)', textColor: '#444' }, // Pastel Peach Glow
+
+    // ✨ PROFESSIONAL THEMES
+    { background: 'linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%)', textColor: '#ddd' }, // Deep Teal Blue
+    { background: 'linear-gradient(135deg, #232526 0%, #414345 100%)', textColor: '#bbb' }, // Dark Grey Elegance
+    { background: 'linear-gradient(135deg, #485563 0%, #29323c 100%)', textColor: '#ddd' }, // Professional Grey-Blue
+    { background: 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)', textColor: '#ccc' }, // Executive Navy
+    { background: 'linear-gradient(135deg, #b8c6db 0%, #f5f7fa 100%)', textColor: '#222' }, // Soft Corporate
+    { background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', textColor: '#ddd' }, // Modern Violet-Blue
+    { background: 'linear-gradient(135deg, #00c6ff 0%, #0072ff 100%)', textColor: '#222' }, // Business Blue Spectrum
+    { background: 'linear-gradient(135deg, #485563 0%, #29323c 100%)', textColor: '#ccc' }, // Charcoal Sophistication
+
+    // 🏆 FINANCE-INSPIRED COLORS
+    { background: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)', textColor: '#222' }, // Wealth Green
+    { background: 'linear-gradient(135deg, #b92b27 0%, #1565c0 100%)', textColor: '#ddd' }, // Financial Security Mix
+    { background: 'linear-gradient(135deg, #ffb347 0%, #ffcc33 100%)', textColor: '#444' }, // Golden Prosperity
+    { background: 'linear-gradient(135deg, #f7b733 0%, #fc4a1a 100%)', textColor: '#333' }, // Energetic Growth
+
+    // 🌊 CALMING & ENGAGING
+    { background: 'linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)', textColor: '#ddd' }, // Calm Oceanic Blue
+    { background: 'linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%)', textColor: '#222' }, // Cool Aqua Glow
+    { background: 'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)', textColor: '#444' }, // Gentle Pink Fade
+    { background: 'linear-gradient(135deg, #f4d03f 0%, #16a085 100%)', textColor: '#222' }, // Calm Mint-Gold Balance
+
+    // 🔥 BOLD & ATTENTION-GRABBING
+    { background: 'linear-gradient(135deg, #ff512f 0%, #dd2476 100%)', textColor: '#222' }, // Passionate Red-Pink
+    { background: 'linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%)', textColor: '#333' }, // Intense Orange Energy
+    { background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)', textColor: '#ccc' } // Bold Deep Blue
+];
+
   const [currentScheme, setCurrentScheme] = useState(colorSchemes[0]);
   useEffect(() => {
     const randomScheme = colorSchemes[Math.floor(Math.random() * colorSchemes.length)];
