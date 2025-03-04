@@ -18,7 +18,7 @@ function App() {
   const RECOMMENDATIONS = [
     'Automate Savings: Schedule an automatic transfer to your savings or investment account each month.',
     'Track Expenses: Use a budgeting app (e.g., Seedly, YNAB) to keep tabs on your daily spending.',
-    'Review Subscriptions: Cancel any unused subscriptions or memberships to free up extra cash.',
+    'Review Subscriptions: Cancel any unused subscriptions or memberships to free up extra cash. (e.g, Netflix, Disney+, ChatGPT Plus, etc.)',
     'Pay High-Interest Debts First: Focus on credit cards or personal loans before other expenses.',
     'Leverage CPF & Government Schemes: Top up your CPF or explore local grants for housing and healthcare.',
     'Build an Emergency Fund: Aim for 3-6 months of expenses in a liquid savings account.',
