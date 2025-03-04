@@ -271,6 +271,9 @@ function App() {
         <div className={`tab ${selectedTab === 'diet' ? 'active' : ''}`} onClick={() => { setSelectedTab('diet'); setDietSubTab(null); }}>
           Diet / BMI
         </div>
+        <div className={`tab ${selectedTab === 'misc' ? 'active' : ''}`} onClick={() => { setSelectedTab('misc'); setDietSubTab(null); }}>
+          Miscallenous
+        </div>
       </div>
 
       {/* ===== Finance Tab with Sub-Tabs ===== */}
